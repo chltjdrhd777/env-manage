@@ -31,7 +31,13 @@
 
 1. access token 발급을 위한 Endpoint <br/>
 
-2. database 조회 후 해당 데이터를 전달해줄 Endpoint (이 때에, generate를 담당하는 endpoint는 3번에서 설명된 "repo"의 값을 body에서 받아서 해당 컬럼에 해당하는 값만 조회하는 로직이 필요합니다.)<br/>
+2. database 조회 후 해당 데이터를 전달해줄 Endpoint <br/>
+   `해당 endpoint는 init 때 발급받은 accessToken 검증하는 로직이 필요함 (미들웨어 구조 추천)`<br/>
+   `해당 endpoint는 body에서 전달받는 "repo" 값을 기준으로 데이터베이스를 필터링하여 Env 값을 조회해야 함`
+   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/access%20token%20%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%B3%E1%86%BC%20%E1%84%86%E1%85%B5%E1%84%83%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B0%E1%84%8B%E1%85%A5.png"><br/>
+   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/repo%20%E1%84%91%E1%85%B5%E1%86%AF%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC.png">
+
+<br/>
 
 3. "repo" 라는 컬럼명을 지닌 env 관리 테이블. (repo 컬럼은 예를 들어, 웹개발 환경인지, 앱개발 환경인지, 서버인지 등등을 구분합니다. 자세 사항은 gen 커맨드 설명 내용 참조.)
 
