@@ -1,6 +1,6 @@
 {
   "name": "env-manage",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A-lock env manager",
   "bin": {
     "env-manage": "./cli.js"

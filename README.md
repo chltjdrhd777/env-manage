@@ -29,7 +29,8 @@
 
 > 해당 구조에 따라, 초기설정으로 필요한 서버 및 데이터베이스 구조는 아래와 같습니다.
 
-0. access token을 발급받기 위해 필요한 _secret_ 값.
+0. access token을 발급받기 위해 필요한 **secret** 값.
+   <br/>
    (서버 내 env에 저장되어 있어야 하며, 해당 값은 개발자들 끼리 대외비로 공유되어야 합니다.)
 
 1. access token 발급을 위한 **Init Endpoint** (POST/Body 내에 secret 값 검증)<br/>
@@ -91,7 +92,7 @@ npx env-manage gen -d -repo afun-wallet-app -filename env.development
 
 초기 설정이 완료된 이후에는, 해당 데이터를 기반으로 access token을 업데이트합니다.
 
-<img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/gif/refresh%20example.gif"/>
+<img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/gif/env-manage%20refresh%20exmaple2.gif"/>
 
 ```
 # gen command 예시
