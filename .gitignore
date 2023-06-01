@@ -68,6 +68,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.*
 .env.local
 .env.dev
 .env.production
