@@ -9,7 +9,9 @@
 
 <br/>
 
-손쉽게 env를 가져와서 파일로 사용할 수 있도록 만들어본 툴입니다.
+사내 env 데이터를 가져와서 파일로 사용할 수 있도록 만들어본 툴입니다.
+
+개발 시 env를 번거롭게 초기화하지 않고 커맨드로 재생성하여 업데이트 할 수 있도록 구현하였습니다.
 
 ## Quick Features
 
@@ -31,24 +33,42 @@
 
 0. access token을 발급받기 위해 필요한 **secret** 값.
    <br/>
-   (서버 내 env에 저장되어 있어야 하며, 해당 값은 개발자들 끼리 대외비로 공유되어야 합니다.)
+   (해당 secret은 개발자들이 대외비로 알고 있어야 하며, 서버 측은 이 secret을 저장하고 이것과 jwt 라이브러리를 이용하여 access token을 생성 및 검증하는 로직을 만들어야 합니다.)
+   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/secret%20env%20%E1%84%8B%E1%85%A8%E1%84%89%E1%85%B5.png">
 
-1. access token 발급을 위한 **Init Endpoint** (POST/Body 내에 secret 값 검증)<br/>
+1. access token 발급을 위한 **Init Endpoint** (POST/Body 내에 secret 값 검증 후 일치하면 jwt토큰을 생성하여 전달)<br/>
+
+   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/init%20endpoint%20controller%20example.png"/>
 
 2. database 조회 후 해당 데이터를 전달해줄 **Generate Endpoint** (POST/Body 내에 repo 값으로 데이터 필터링) <br/>
-   `해당 endpoint는 init 때 발급받은 accessToken 검증하는 로직이 필요함 (미들웨어 구조 추천/Authorization Header을 통해 전달되므로, 검증 middleware에서 해당 header의 access token을 검증하도록 구현해야 함)`<br/>
-   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/access%20token%20%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%B3%E1%86%BC%20%E1%84%86%E1%85%B5%E1%84%83%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B0%E1%84%8B%E1%85%A5.png"><br/>
-   `해당 endpoint는 body에서 전달받는 "repo" 값을 기준으로 데이터베이스를 필터링하여 Env 값을 조회해야 함`
-   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/repo%20%E1%84%91%E1%85%B5%E1%86%AF%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC.png">
-   <br/>
+
+   - 해당 endpoint는 init 때 발급받은 access token을 검증하는 로직이 필요함 (미들웨어 구조 추천)
+     <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/access%20token%20%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%B3%E1%86%BC%20%E1%84%86%E1%85%B5%E1%84%83%E1%85%B3%E1%86%AF%E1%84%8B%E1%85%B0%E1%84%8B%E1%85%A5.png"><br/>
+
+   - access token은 Authorization Header을 통해 전달되므로, 검증 middleware에서 해당 header의 access token을 검증하도록 구현해야 함<br/>
+     <br/>
+     <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/varification%20example.png"/>
+     <br/>
+   - generate endpoint는 body에서 전달받는 "repo" 값을 기준으로 데이터베이스를 필터링하여 Env 값을 조회해야 함
+     <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/repo%20%E1%84%91%E1%85%B5%E1%86%AF%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC.png">
+     <br/>
+   - generate endpoint에서 response로 전달해줘야 할 env 리스트는 그 값 자체를 Json으로 보내주어야 함
+     <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/generate%20reulst%20example.png">
 
 3. "repo" 라는 컬럼명을 지닌 env 관리 테이블. (repo 컬럼은 예를 들어, 웹개발 환경인지, 앱개발 환경인지, 서버인지 등등을 구분하여 env 데이터를 저장합니다. 자세 사항은 gen 커맨드 설명 내용 참조.)
+   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/repo%20example.png"/>
 
 ---
 
 ## Commands
 
 📖 `init` : 초기 환경 설정을 실행합니다 </br>
+
+init이 진행방향은 아래와 같습니다.</br>
+
+a. command 입력<br/>
+b. origin 입력<br/>
+c. secret 입력
 
 _args_</br>
 
@@ -63,6 +83,8 @@ _args_</br>
 
 npx env-manage init -d -sve v1/env-init -gee v1/env-generate
 ```
+
+> init이 완료되면, 초기설정에 대한 값이 data.json이라는 파일에 저장되어 해당 모듈의 폴더 아래에 저장됩니다.
 
 ---
 
@@ -81,7 +103,7 @@ _args_</br>
 ```
 # gen command 예시
 
-npx env-manage gen -d -repo afun-wallet-app -filename env.development
+npx env-manage gen -d -repo afun-wallet-app -filename .env.development
 ```
 
 ---
