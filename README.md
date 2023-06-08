@@ -93,13 +93,11 @@ npx env-manage init -sve v1/env-init -gee v1/env-generate
 
 _args_</br>
 
-1. mode ("-d" or "-p") : 환경을 설정합니다. 설정된 환경의 서버로부터 `evn 데이터`를 발급받습니다.
+1. mode ("-d" or "-p") : 환경을 설정합니다. 설정된 환경의 서버로부터 `env 데이터`를 발급받습니다.
 
 2. -repo (env 필터링 쿼리) : env가 관리되는 데이터베이스 테이블에서 예를 들어 "afun-wallet-app"이라는 장소의 env만 필요할 경우, 해당 데이터만 필터링하여 조회할 수 있도록 전달되어야 하는 값잆니다.
 
-3. -gee (generate을 담당하는 endpoint) : 서버의 어떤 endpoint로 요청하여 env를 생성할 것인지를 결정합니다.
-
-4. -filename (env 이름, _optional_) : env를 생성할 시, 어떤 이름으로 설정할 것인지를 결정합니다. 만약 입력하지 않는다면 ".env"로 자동 설정됩니다.
+3. -filename (env 이름, _optional_) : env를 생성할 시, 어떤 이름으로 설정할 것인지를 결정합니다. 만약 입력하지 않는다면 ".env"로 자동 설정됩니다.
 
 ```
 # gen command 예시
