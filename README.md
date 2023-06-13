@@ -13,7 +13,8 @@
 
 개발 시 env를 번거롭게 초기화하지 않고 커맨드로 재생성하여 업데이트 할 수 있도록 구현하였습니다.
 
-> 개발 후기와 관련하여 정리한 내용은 [개인 블로그]("https://velog.io/@chltjdrhd777/react-native-%EB%B3%B4%EC%95%88%EA%B3%BC-env%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C")에서 확인하실 수 있습니다.
+> 개발 후기와 관련하여 정리한 내용은 [개인 블로그](https://velog.io/@chltjdrhd777/react-native-%EB%B3%B4%EC%95%88%EA%B3%BC-env%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C)에서 확인하실 수 있습니다.
+
 
 ## Quick Features
 
