@@ -100,10 +100,4 @@ if (command === 'refresh') {
   }
 
   refresh(dataPath);
-
-  //3. 만약 있다면, readline으로 secret과 환경을 물어본다
-  //4. 어느 하나라도 답 안하면 바로 종료시킨다.
-  //5. 만약 둘 다 답을 했으면, data.json에서 해당 환경에 대한 url로 secret 넣어서 검증받아서 token을 받아온다.
-  //6. 그리고 나서 다시 data.json을 만들어서 저장한다.
-  // 위의 로직은 init과 겹치는 부분이 존재하므로, 공통화 할 수 있는 부분이 있는 지 확인한다.-
 }
