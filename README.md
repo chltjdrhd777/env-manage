@@ -59,7 +59,7 @@
      <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/generate%20reulst%20example.png">
 
 3. "repo" 라는 컬럼명을 지닌 env 관리 테이블. (repo 컬럼은 예를 들어, 웹개발 환경인지, 앱개발 환경인지, 서버인지 등등을 구분하여 env 데이터를 저장합니다. 자세 사항은 gen 커맨드 설명 내용 참조.)
-   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/repo%20example.png"/>
+   <img src="https://raw.githubusercontent.com/chltjdrhd777/image-hosting/main/repo%20example%20image.png"/>
 
 ---
 
